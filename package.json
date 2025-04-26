@@ -1,18 +1,1 @@
-{
-  "name": "Fb-Auto-share",
-  "version": "1.0.0",
-  "description": "An Fb Auto share",
-  "author": "Jurex",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "jest": "^27.5.1"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "test": "jest"
-  },
-  "main": "index.js"
-}
+

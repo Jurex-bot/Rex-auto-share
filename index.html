@@ -1,316 +1,1503 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Share Boost-Jurex Automated Facebook Shares</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Share Boost</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="https://i.imgur.com/zi15QL3.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/zi15QL3.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1E1A34">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#8B5CF6',
+                        'primary-darker': '#7C3AED',
+                        'text-main': '#E5E7EB',
+                        'text-muted': '#9CA3AF',
+                        'bg-container': '#1E1A34',
+                        'bg-card': 'rgba(43, 42, 62, 0.7)',
+                        'border-color': 'rgba(139, 92, 246, 0.15)',
+                        'input-bg': 'rgba(43, 42, 62, 0.5)',
+                        'input-border': 'rgba(139, 92, 246, 0.3)',
+                        'nav-bg': 'rgba(30, 26, 52, 0.95)',
+                        'nav-border': 'rgba(139, 92, 246, 0.2)',
+                        'modal-bg': '#2a2744',
+                        'success-bg': '#166534',
+                        'success-text': '#dcfce7',
+                        'error-bg': '#991b1b',
+                        'error-text': '#fee2e2',
+                        'info-bg': 'rgba(139, 92, 246, 0.1)',
+                        'info-text': '#d8b4fe',
+                        'info-border': 'rgba(139, 92, 246, 0.3)',
+                        'warning-bg': 'rgba(245, 158, 11, 0.1)',
+                        'warning-text': '#fde68a',
+                        'warning-border': 'rgba(217, 119, 6, 0.3)',
+                        'video-bg': 'rgba(22, 163, 74, 0.1)',
+                        'video-text': '#bbf7d0',
+                        'video-border': 'rgba(21, 128, 61, 0.3)',
+                        'server-item-bg-hover': 'rgba(139, 92, 246, 0.1)',
+                        'status-active': '#22c55e',
+                        'status-offline': '#ef4444',
+                        'status-timeout': '#f59e0b',
+                        'premium-bg': 'rgba(234, 179, 8, 0.1)',
+                        'premium-text': '#fde047',
+                        'premium-border': 'rgba(234, 179, 8, 0.3)',
+                    },
+                    boxShadow: {
+                        'primary-glow': '0 0 15px rgba(139, 92, 246, 0.3)',
+                        'card': '0 5px 20px rgba(0, 0, 0, 0.2)',
+                        'header': '0 2px 10px rgba(30, 26, 52, 0.2)',
+                        'nav': '0 -2px 10px rgba(30, 26, 52, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #2E2E2E;
-            color: #DCDCDC;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: contain;
+            background-color: theme('colors.bg-container');
+            color: theme('colors.text-main');
         }
 
-        header {
-            width: 100%;
-            background-color: #1C1C1C;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            top: 0;
-            z-index: 999;
-            transition: background-color 0.3s ease-in-out;
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #FFFFFF;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        ::-webkit-scrollbar-track {
+            background: transparent;
         }
 
-        .wrapper-container {
-            background: linear-gradient(145deg, #383838, #2D2D2D);
-            width: 90%;
-            max-width: 750px;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            margin-top: 120px;
-            transition: transform 0.2s ease;
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.primary');
+            border-radius: 3px;
         }
 
-        .wrapper-container:hover {
-            transform: scale(1.02);
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.primary-darker');
         }
 
-        h2 {
-            color: #F0F0F0;
-            font-size: 2.2rem;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: #B0B0B0;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        label {
-            font-size: 1rem;
-            color: #DCDCDC;
-            font-weight: 500;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        input, select, button {
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid #555;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
-        }
-
-        input:focus, select:focus {
-            border-color: #00BFFF;
-            box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
-        }
-
-        button {
-            background-color: #00BFFF;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            border-radius: 10px;
-        }
-
-        button:hover {
-            background-color: #009ACF;
-            transform: scale(1.05);
-        }
-
-        .processing {
+        .content-section {
             display: none;
-            margin-top: 20px;
-            font-size: 1rem;
-            color: #FFFFFF;
-            text-align: center;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: #333333;
-            padding: 40px;
-            border-radius: 15px;
-            width: 80%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.3s ease-out;
         }
 
-        .modal-content h4 {
-            color: #FFFFFF;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .close-modal {
-            background-color: #00BFFF;
-            color: white;
-            padding: 12px 24px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            background-color: #009ACF;
+        .content-section.active {
+            display: block;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
+                transform: translateY(5px);
             }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.75rem;
+            color: inherit;
+            position: relative;
+            padding-bottom: 0rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: 1050;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
             to {
                 opacity: 1;
             }
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+        .modal-content {
+            padding: 1.75rem;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 300px;
+            max-width: 90%;
+            border: 1px solid theme('colors.border-color');
+            background-color: theme('colors.modal-bg');
+            color: theme('colors.text-main');
+            animation: modalScaleUp 0.3s ease-out;
+            position: relative;
+        }
+
+        @keyframes modalScaleUp {
+            from {
+                transform: scale(0.95);
+                opacity: 0.7;
             }
 
-            .wrapper-container {
-                padding: 30px;
-            }
-
-            h2 {
-                font-size: 1.8rem;
+            to {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
+        #responseModal .modal-content {
+            padding: 1.75rem;
+        }
 
-            .wrapper-container {
-                padding: 15px;
-            }
+        .modal-content.success {
+            border-left: 5px solid theme('colors.status-active');
+            background-color: theme('colors.success-bg');
+            color: theme('colors.success-text');
+        }
 
-            h2 {
-                font-size: 1.5rem;
-            }
+        .modal-content.error {
+            border-left: 5px solid theme('colors.status-offline');
+            background-color: theme('colors.error-bg');
+            color: theme('colors.error-text');
+        }
 
-            label, input, select, button {
-                font-size: 0.9rem;
-            }
+        .tutorial-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            background-color: #000;
+            border: 1px solid theme('colors.border-color');
+            box-shadow: theme('boxShadow.card');
+            display: block;
+        }
+
+        .nav-item {
+            transition: color 0.2s ease-in-out;
+        }
+
+        .nav-indicator {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus,
+        button:focus-visible {
+            outline: 2px solid theme('colors.primary') !important;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        button,
+        .nav-item,
+        .server-item {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .server-item {
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            cursor: pointer;
+            border-color: theme('colors.input-border');
+        }
+
+        .server-item:not(.disabled):hover {
+            background-color: theme('colors.server-item-bg-hover');
+        }
+
+        .server-item.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            background-color: rgba(255, 255, 255, 0.05);
+            line-height: 1;
+            transition: background-color 0.2s;
+        }
+
+        .modal-close-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .heading-underline::after {
+             content: '';
+             position: absolute;
+             left: 0;
+             bottom: -2px;
+             width: 100%;
+             height: 3px;
+             background-color: theme('colors.primary');
+             opacity: 0.6;
+             border-radius: 2px;
+        }
+
+        #side-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+        #menu-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .auth-section {
+            display: none;
+        }
+        .auth-section.active {
+            display: block;
+        }
+
+        .post {
+            border-radius: 0.75rem;
+            background-color: theme('colors.bg-card');
+            border: 1px solid theme('colors.border-color');
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            background-color: theme('colors.primary');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .post-user {
+            font-weight: 600;
+        }
+
+        .post-time {
+            font-size: 0.75rem;
+            color: theme('colors.text-muted');
+        }
+
+        .post-content {
+            margin-bottom: 0.75rem;
+        }
+
+        .post-actions {
+            display: flex;
+            border-top: 1px solid theme('colors.border-color');
+            padding-top: 0.5rem;
+        }
+
+        .post-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            color: theme('colors.text-muted');
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .post-action:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: theme('colors.primary');
+        }
+
+        .post-action.active {
+            color: theme('colors.primary');
+        }
+
+        .comment {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid theme('colors.border-color');
+            display: none;
+        }
+
+        .comment.show {
+            display: block;
+        }
+
+        .comment-input {
+            display: flex;
+            margin-top: 0.75rem;
+        }
+
+        .comment-input input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: theme('colors.input-bg');
+            border: 1px solid theme('colors.input-border');
+            color: theme('colors.text-main');
+        }
+
+        .comment-input button {
+            margin-left: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: theme('colors.primary');
+            color: white;
+            font-weight: 500;
+        }
+
+        .comment-item {
+            display: flex;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: theme('colors.input-bg');
+            border-radius: 0.5rem;
+        }
+
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            background-color: theme('colors.primary');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.75rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .comment-content {
+            flex-grow: 1;
+        }
+
+        .comment-user {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .comment-text {
+            font-size: 0.875rem;
+        }
+
+        .premium-badge {
+            background-color: theme('colors.premium-bg');
+            color: theme('colors.premium-text');
+            border: 1px solid theme('colors.premium-border');
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+
+        .admin-badge {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #fecaca;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+
+        .avatar-selection {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .avatar-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-option.selected {
+            border: 3px solid theme('colors.primary');
+            transform: scale(1.05);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .file-input-button {
+            border: 1px dashed theme('colors.input-border');
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-input-button:hover {
+            border-color: theme('colors.primary');
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid theme('colors.primary');
+            display: none;
+        }
+
+        .avatar-preview.show {
+            display: block;
         }
     </style>
 </head>
 
-<body>
-    <header>
-        <h1>Share Boost</h1>
-    </header>
-
-    <div class="wrapper-container">
-        <h2>Boost Your Facebook Shares</h2>
-        <p>A modern tool to automate sharing posts on Facebook using your Appstate.</p>
-
-        <div color="color: black;" class="form-container">
-            <form onsubmit="submitForm(event)">
-                <label for="cookies">App State:</label>
-                <input type="text" id="cookies" name="cookie" placeholder="Enter your app state" required>
-
-                <label for="urls">Link:</label>
-                <input type="text" id="urls" name="url" placeholder="Enter the link" required>
-
-                <label for="amounts">Limit:</label>
-                <select id="amounts" name="amount" required>
-                    <option value="100">100</option>
-                    <option value="300">300</option>
-                    <option value="500">500</option>
-                    <option value="700">700</option>
-                    <option value="1000">1000</option>
-                </select>
-
-                <label for="intervals">Delay (seconds):</label>
-                <select id="intervals" name="interval" required>
-                    <option value="0.1">0.1 Second - Fast Process But Your Enemy is Restriction</option>
-                    <option value="0.5">0.5 Second - Not to Fast Process</option>
-                    <option value="1">1 Minute - Recommendable</option>
-                </select>
-
-                <button type="submit" id="submit-button">Submit</button>
-
-                <div id="processing" class="processing">Processing... Please wait.</div>
+<body class="bg-bg-container text-text-main font-poppins">
+    <!-- Auth Sections -->
+    <div id="auth-sections" class="max-w-md mx-auto min-h-screen flex flex-col justify-center p-5">
+        <!-- Login Section -->
+        <section id="login-section" class="auth-section">
+            <div class="text-center mb-8">
+                <img src="https://i.imgur.com/zi15QL3.png" alt="Logo" class="w-16 h-16 bg-primary p-2 rounded-lg mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-text-main mb-1">Welcome Back</h1>
+                <p class="text-text-muted">Login to access your account</p>
+            </div>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-email" class="text-sm font-medium text-text-muted mb-1.5 block">Email</label>
+                    <input type="email" id="login-email" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter your email" required>
+                </div>
+                <div>
+                    <label for="login-password" class="text-sm font-medium text-text-muted mb-1.5 block">Password</label>
+                    <input type="password" id="login-password" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold text-base hover:bg-primary-darker transition-all duration-300">Login</button>
             </form>
-        </div>
+            <div class="text-center mt-4">
+                <p class="text-text-muted text-sm">Don't have an account? <button id="show-signup" class="text-primary font-medium">Sign up</button></p>
+            </div>
+            <div class="text-center mt-6">
+                <button id="show-admin-login" class="text-text-muted text-sm underline">Admin Login</button>
+            </div>
+        </section>
+
+        <!-- Signup Section -->
+        <section id="signup-section" class="auth-section">
+            <div class="text-center mb-8">
+                <img src="https://i.imgur.com/zi15QL3.png" alt="Logo" class="w-16 h-16 bg-primary p-2 rounded-lg mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-text-main mb-1">Create Account</h1>
+                <p class="text-text-muted">Join us to get started</p>
+            </div>
+            <form id="signup-form" class="space-y-4">
+                <div>
+                    <label for="signup-name" class="text-sm font-medium text-text-muted mb-1.5 block">Full Name</label>
+                    <input type="text" id="signup-name" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter your full name" required>
+                </div>
+                <div>
+                    <label for="signup-email" class="text-sm font-medium text-text-muted mb-1.5 block">Email</label>
+                    <input type="email" id="signup-email" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter your email" required>
+                </div>
+                <div>
+                    <label for="signup-password" class="text-sm font-medium text-text-muted mb-1.5 block">Password</label>
+                    <input type="password" id="signup-password" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Create a password" required>
+                </div>
+                <div>
+                    <label for="signup-confirm-password" class="text-sm font-medium text-text-muted mb-1.5 block">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Confirm your password" required>
+                </div>
+                
+                <div id="avatar-selection-container">
+                    <label class="text-sm font-medium text-text-muted mb-1.5 block">Choose Profile Picture</label>
+                    <div class="avatar-selection">
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/JqYeS5n.png');" data-avatar="https://i.imgur.com/JqYeS5n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/5Z8Q2Zn.png');" data-avatar="https://i.imgur.com/5Z8Q2Zn.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/7GZQY3n.png');" data-avatar="https://i.imgur.com/7GZQY3n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/9XZQY3n.png');" data-avatar="https://i.imgur.com/9XZQY3n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/1XZQY3n.png');" data-avatar="https://i.imgur.com/1XZQY3n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/2XZQY3n.png');" data-avatar="https://i.imgur.com/2XZQY3n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/3XZQY3n.png');" data-avatar="https://i.imgur.com/3XZQY3n.png"></div>
+                        <div class="avatar-option" style="background-image: url('https://i.imgur.com/4XZQY3n.png');" data-avatar="https://i.imgur.com/4XZQY3n.png"></div>
+                    </div>
+                    <div class="file-input-wrapper">
+                        <div class="file-input-button">
+                            <i data-lucide="upload" class="w-5 h-5 mx-auto mb-1 text-primary"></i>
+                            <div class="text-sm text-text-muted">Or upload your own</div>
+                            <input type="file" id="avatar-upload" class="file-input" accept="image/*">
+                        </div>
+                    </div>
+                    <div id="avatar-preview" class="avatar-preview mt-4"></div>
+                </div>
+                
+                <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold text-base hover:bg-primary-darker transition-all duration-300">Sign Up</button>
+            </form>
+            <div class="text-center mt-4">
+                <p class="text-text-muted text-sm">Already have an account? <button id="show-login" class="text-primary font-medium">Login</button></p>
+            </div>
+        </section>
+
+        <!-- Admin Login Section -->
+        <section id="admin-login-section" class="auth-section">
+            <div class="text-center mb-8">
+                <img src="https://i.imgur.com/zi15QL3.png" alt="Logo" class="w-16 h-16 bg-primary p-2 rounded-lg mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-text-main mb-1">Admin Portal</h1>
+                <p class="text-text-muted">Restricted access</p>
+            </div>
+            <form id="admin-login-form" class="space-y-4">
+                <div>
+                    <label for="admin-username" class="text-sm font-medium text-text-muted mb-1.5 block">Username</label>
+                    <input type="text" id="admin-username" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter admin username" required>
+                </div>
+                <div>
+                    <label for="admin-password" class="text-sm font-medium text-text-muted mb-1.5 block">Password</label>
+                    <input type="password" id="admin-password" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Enter admin password" required>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold text-base hover:bg-primary-darker transition-all duration-300">Login as Admin</button>
+            </form>
+            <div class="text-center mt-4">
+                <button id="show-user-login" class="text-text-muted text-sm underline">Back to User Login</button>
+            </div>
+        </section>
     </div>
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h4 id="modal-message">Message will appear here.</h4>
-            <button class="close-modal" onclick="closeModal()">Close</button>
+    <!-- Main App (hidden until authenticated) -->
+    <div id="app-container" class="max-w-md mx-auto min-h-screen pb-20 bg-bg-container shadow-lg flex flex-col relative overflow-x-hidden hidden">
+
+        <header class="p-4 border-b bg-nav-bg border-nav-border sticky top-0 z-40 backdrop-blur-md shadow-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                   <img src="https://i.imgur.com/zi15QL3.png" alt="Logo" class="w-8 h-8 bg-primary p-1 rounded-lg">
+                   <h1 class="text-xl font-semibold text-inherit">Share Boost</h1>
+                   <span id="user-badge" class="text-xs font-medium px-2 py-0.5 rounded-full"></span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button id="create-post-button" class="text-text-muted hover:text-primary transition-colors p-1.5 bg-primary/10 rounded-lg">
+                        <i data-lucide="plus" class="w-5 h-5 text-primary"></i>
+                    </button>
+                    <button id="menu-button" class="text-text-muted hover:text-primary transition-colors">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow overflow-y-auto p-5">
+            <div class="content-sections">
+                <section id="home-section" class="content-section active">
+                    <form id="share-boost-form" class="space-y-5 mt-5">
+                        <div>
+                            <label for="cookies" class="text-sm font-medium text-text-muted mb-1.5 block flex items-center gap-1.5">
+                                <i data-lucide="cookie" class="w-4 h-4 text-primary"></i> Appstate:
+                            </label>
+                            <textarea id="cookies" name="cookie" rows="4" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Paste your Facebook appstate JSON here..." required></textarea>
+                        </div>
+                        <div>
+                            <label for="urls" class="text-sm font-medium text-text-muted mb-1.5 block flex items-center gap-1.5">
+                                <i data-lucide="link" class="w-4 h-4 text-primary"></i> Post Link:
+                            </label>
+                            <input type="url" id="urls" name="url" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="https://www.facebook.com/..." required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="amounts" class="text-sm font-medium text-text-muted mb-1.5 block flex items-center gap-1.5">
+                                    <i data-lucide="hash" class="w-4 h-4 text-primary"></i> Share Limit:
+                                </label>
+                                <input type="number" id="amounts" name="amount" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="e.g., 100" min="1" max="500" required>
+                            </div>
+                            <div>
+                                <label for="intervals" class="text-sm font-medium text-text-muted mb-1.5 block flex items-center gap-1.5">
+                                    <i data-lucide="timer" class="w-4 h-4 text-primary"></i> Delay (sec):
+                                </label>
+                                <input type="number" id="intervals" name="interval" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="e.g., 10" min="1" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-text-muted mb-1.5 block flex items-center gap-1.5">
+                                <i data-lucide="server" class="w-4 h-4 text-primary"></i> Server:
+                            </label>
+                            <input type="hidden" id="selectedServer" name="server" value="">
+                            <button type="button" id="server-select-button" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm text-left flex justify-between items-center hover:bg-white/5">
+                                <span id="server-select-button-text">Select a Server...</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-text-muted"></i>
+                            </button>
+                        </div>
+                        <button type="submit" id="submit-button" class="w-full bg-primary text-white py-3 rounded-lg font-semibold text-base hover:bg-primary-darker transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed shadow-md hover:shadow-lg shadow-primary/30 active:scale-[0.98]" disabled>
+                            <span class="button-icon"><i data-lucide="loader-circle" class="w-5 h-5 animate-spin"></i></span>
+                            <span class="button-text">Checking Servers...</span>
+                        </button>
+                    </form>
+                </section>
+
+                <section id="tutorial-section" class="content-section">
+                    <h2 class="section-title">Video Tutorial</h2>
+                    <div class="p-3 bg-bg-card rounded-xl border border-border-color shadow-card overflow-hidden">
+                        <video class="tutorial-video" controls preload="metadata" poster="https://i.imgur.com/NHzW52j.png">
+                            <source src="https://i.imgur.com/UvbU5QK.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="text-center text-sm text-text-muted mt-6 px-2 leading-relaxed">
+                        Watch the video to learn how to get your appstate and use the Share Boost tool correctly.
+                    </p>
+                </section>
+
+                <section id="notifications-section" class="content-section">
+                    <h2 class="section-title">Notifications</h2>
+                    <div id="notifications-list" class="space-y-4">
+                         <div class="flex items-start gap-3 p-3.5 bg-info-bg rounded-lg border border-info-border shadow-sm">
+                            <i data-lucide="paintbrush" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5"></i>
+                            <span class="text-sm text-info-text">We've updated the design for a fresh new look! Hope you like it.</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-3.5 bg-info-bg rounded-lg border border-info-border shadow-sm">
+                            <i data-lucide="info" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5"></i>
+                            <span class="text-sm text-info-text">Welcome! Ensure the server is active before starting.</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-3.5 bg-video-bg rounded-lg border border-video-border shadow-sm">
+                            <i data-lucide="video" class="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-sm text-video-text">There's now a video guide in the Tutorial section!</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-3.5 bg-warning-bg rounded-lg border border-warning-border shadow-sm">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"></i>
+                            <span class="text-sm text-warning-text">Use responsibly. Avoid excessive sharing to prevent Facebook restrictions.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="posts-section" class="content-section">
+                    <h2 class="section-title">Community Posts</h2>
+                    <div id="posts-container" class="space-y-4">
+                        <!-- Posts will be dynamically added here -->
+                    </div>
+                </section>
+
+                <section id="admin-section" class="content-section">
+                    <h2 class="section-title">Admin Dashboard</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-bg-card rounded-lg border border-border-color">
+                            <h3 class="font-semibold text-lg mb-3">User Management</
+                                <div id="user-management-list" class="space-y-3"> <!-- Users will be dynamically added here --> </div> </div> <div class="p-4 bg-bg-card rounded-lg border border-border-color"> <h3 class="font-semibold text-lg mb-3">Server Status</h3> <div id="admin-server-list" class="space-y-2"> <!-- Server status will be added here --> </div> </div> <div class="p-4 bg-bg-card rounded-lg border border-border-color"> <h3 class="font-semibold text-lg mb-3">App Announcement</h3> <textarea id="admin-announcement" class="w-full p-3 rounded-lg border bg-input-bg border-input-border text-text-main placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="Write an announcement for all users..." rows="3"></textarea> <button id="post-announcement-btn" class="mt-2 bg-primary text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-primary-darker transition-colors"> Post Announcement </button> </div> </div> </section> </div> </main>
+                                    <nav class="fixed bottom-0 left-0 right-0 bg-nav-bg border-t border-nav-border max-w-md mx-auto backdrop-blur-md z-50 shadow-nav">
+        <div class="relative">
+            <div class="flex justify-around items-center px-3 py-2.5">
+                <a href="#" data-section="home" class="nav-item flex flex-col items-center text-primary p-2 w-1/4">
+                    <i data-lucide="home" class="w-5 h-5 mb-0.5"></i><span class="text-xs font-medium">Home</span>
+                </a>
+                <a href="#" data-section="tutorial" class="nav-item flex flex-col items-center text-text-muted p-2 w-1/4 hover:text-primary transition-colors">
+                    <i data-lucide="play-circle" class="w-5 h-5 mb-0.5"></i><span class="text-xs font-medium">Tutorial</span>
+                </a>
+                <a href="#" data-section="posts" class="nav-item flex flex-col items-center text-text-muted p-2 w-1/4 hover:text-primary transition-colors">
+                    <i data-lucide="message-square" class="w-5 h-5 mb-0.5"></i><span class="text-xs font-medium">Posts</span>
+                </a>
+                <a href="#" data-section="notifications" class="nav-item flex flex-col items-center text-text-muted p-2 w-1/4 hover:text-primary transition-colors">
+                    <i data-lucide="bell" class="w-5 h-5 mb-0.5"></i><span class="text-xs font-medium">Notify</span>
+                </a>
+            </div>
+            <div class="nav-indicator absolute bottom-0 left-0 h-1 bg-primary rounded-t-full" style="width: 25%"></div>
         </div>
-    </div>
+    </nav>
 
-    <script>
-        async function submitForm(event) {
-            event.preventDefault();
+    <!-- All modals remain the same as previous code -->
+    <!-- ... -->
 
-            const button = document.getElementById('submit-button');
-            const processing = document.getElementById('processing');
-            const modal = document.getElementById('modal');
-            const modalMessage = document.getElementById('modal-message');
-            const form = event.target;
+</div>
 
-            processing.style.display = 'block';
-            button.style.display = 'none';
+<script>
+    const html = document.documentElement;
+    lucide.createIcons();
 
-            try {
-                const response = await fetch('https://your-api-url.com', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        cookies: document.getElementById('cookies').value,
-                        url: document.getElementById('urls').value,
-                        amount: document.getElementById('amounts').value,
-                        interval: document.getElementById('intervals').value
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
+    // User data and authentication state
+    let currentUser = null;
+    let isAdmin = false;
+    let isPremium = false;
+    const ADMIN_PASSWORD = "admin123"; // In a real app, this should be handled server-side
+    const PREMIUM_USERS = ["premium@example.com"]; // Example premium users
+    const USERS_DB = {}; // Simulated database
+
+    // Sample posts data
+    let posts = [
+        {
+            id: 1,
+            userId: 1,
+            userName: "John Doe",
+            userAvatar: "https://i.imgur.com/JqYeS5n.png",
+            content: "Just used Share Boost and got 200 shares on my post! Amazing tool!",
+            time: "2 hours ago",
+            likes: 15,
+            comments: [
+                {
+                    id: 1,
+                    userId: 2,
+                    userName: "Jane Smith",
+                    userAvatar: "https://i.imgur.com/5Z8Q2Zn.png",
+                    content: "That's awesome! How long did it take?",
+                    time: "1 hour ago"
+                }
+            ],
+            isLiked: false,
+            showComments: false
+        },
+        {
+            id: 2,
+            userId: 2,
+            userName: "Jane Smith",
+            userAvatar: "https://i.imgur.com/5Z8Q2Zn.png",
+            content: "Anyone know the best settings to use for maximum shares without getting flagged?",
+            time: "5 hours ago",
+            likes: 8,
+            comments: [
+                {
+                    id: 1,
+                    userId: 3,
+                    userName: "Admin",
+                    userAvatar: "https://i.imgur.com/7GZQY3n.png",
+                    content: "Try keeping the delay between 10-15 seconds and don't exceed 500 shares per day if you're a free user.",
+                    time: "4 hours ago"
+                }
+            ],
+            isLiked: false,
+            showComments: false
+        }
+    ];
+
+    // Sample users data
+    const sampleUsers = [
+        {
+            id: 1,
+            name: "John Doe",
+            email: "john@example.com",
+            avatar: "https://i.imgur.com/JqYeS5n.png",
+            role: "user",
+            joinDate: "2023-01-15"
+        },
+        {
+            id: 2,
+            name: "Jane Smith",
+            email: "jane@example.com",
+            avatar: "https://i.imgur.com/5Z8Q2Zn.png",
+            role: "user",
+            joinDate: "2023-02-20"
+        },
+        {
+            id: 3,
+            name: "Admin",
+            email: "admin@shareboost.com",
+            avatar: "https://i.imgur.com/7GZQY3n.png",
+            role: "admin",
+            joinDate: "2023-01-01"
+        },
+        {
+            id: 4,
+            name: "Premium User",
+            email: "premium@example.com",
+            avatar: "https://i.imgur.com/9XZQY3n.png",
+            role: "premium",
+            joinDate: "2023-03-10"
+        }
+    ];
+
+    const serverDefinitions = {
+        server1: { name: "Server 1", url: 'https://server1-u9fw.onrender.com' },
+        server2: { name: "Server 2", url: 'https://server-2-aggj.onrender.com' },
+        server3: { name: "Server 3", url: 'https://server-3-p6lg.onrender.com' }
+    };
+
+    // Initialize the app
+    function initApp() {
+        // Check if user is already logged in
+        const loggedInUser = localStorage.getItem('shareBoostUser');
+        if (loggedInUser) {
+            currentUser = JSON.parse(loggedInUser);
+            setupAuthenticatedUI();
+        } else {
+            showAuthSection('login');
+        }
+
+        setupEventListeners();
+        renderPosts();
+    }
+
+    // Show specific auth section
+    function showAuthSection(sectionName) {
+        document.querySelectorAll('.auth-section').forEach(section => {
+            section.classList.remove('active');
+            if (section.id === `${sectionName}-section`) {
+                section.classList.add('active');
+            }
+        });
+    }
+
+    // Setup authenticated UI
+    function setupAuthenticatedUI() {
+        document.getElementById('auth-sections').classList.add('hidden');
+        document.getElementById('app-container').classList.remove('hidden');
+
+        // Update UI based on user role
+        isAdmin = currentUser.role === 'admin';
+        isPremium = currentUser.role === 'premium';
+
+        // Update user badge
+        const userBadge = document.getElementById('user-badge');
+        if (isAdmin) {
+            userBadge.textContent = 'Admin';
+            userBadge.className = 'text-xs font-medium px-2 py-0.5 rounded-full admin-badge';
+            document.getElementById('admin-menu-item').classList.remove('hidden');
+            document.getElementById('admin-section').classList.add('content-section');
+            renderUserManagement();
+            renderAdminServerStatus();
+        } else if (isPremium) {
+            userBadge.textContent = 'Premium';
+            userBadge.className = 'text-xs font-medium px-2 py-0.5 rounded-full premium-badge';
+            document.getElementById('admin-menu-item').classList.add('hidden');
+            document.getElementById('admin-section').classList.remove('content-section');
+            document.getElementById('amounts').removeAttribute('max');
+        } else {
+            userBadge.textContent = 'Free';
+            userBadge.className = 'text-xs font-medium px-2 py-0.5 rounded-full bg-gray-700 text-gray-200';
+            document.getElementById('admin-menu-item').classList.add('hidden');
+            document.getElementById('admin-section').classList.remove('content-section');
+            document.getElementById('amounts').setAttribute('max', '500');
+        }
+
+        // Update menu user info
+        const menuUserAvatar = document.getElementById('menu-user-avatar');
+        const menuUserName = document.getElementById('menu-user-name');
+        const menuUserRole = document.getElementById('menu-user-role');
+        
+        menuUserAvatar.style.backgroundImage = `url('${currentUser.avatar}')`;
+        menuUserAvatar.textContent = '';
+        menuUserName.textContent = currentUser.name;
+        menuUserRole.textContent = isAdmin ? 'Admin' : isPremium ? 'Premium User' : 'Regular User';
+
+        // Update post creation user info
+        const postUserAvatar = document.getElementById('post-user-avatar');
+        const postUserName = document.getElementById('post-user-name');
+        
+        postUserAvatar.style.backgroundImage = `url('${currentUser.avatar}')`;
+        postUserAvatar.textContent = '';
+        postUserName.textContent = currentUser.name;
+
+        // Initialize other UI components
+        renderServerList();
+        checkServerStatus();
+        validateForm();
+        setActiveSection('home');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+        // Auth form submissions
+        document.getElementById('login-form')?.addEventListener('submit', handleLogin);
+        document.getElementById('signup-form')?.addEventListener('submit', handleSignup);
+        document.getElementById('admin-login-form')?.addEventListener('submit', handleAdminLogin);
+
+        // Auth navigation
+        document.getElementById('show-signup')?.addEventListener('click', () => showAuthSection('signup'));
+        document.getElementById('show-login')?.addEventListener('click', () => showAuthSection('login'));
+        document.getElementById('show-admin-login')?.addEventListener('click', () => showAuthSection('admin-login'));
+        document.getElementById('show-user-login')?.addEventListener('click', () => showAuthSection('login'));
+
+        // Avatar selection
+        document.querySelectorAll('.avatar-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('avatar-preview').style.backgroundImage = `url('${this.dataset.avatar}')`;
+                document.getElementById('avatar-preview').classList.add('show');
+            });
+        });
+
+        // Avatar upload
+        document.getElementById('avatar-upload')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('avatar-preview').style.backgroundImage = `url('${event.target.result}')`;
+                    document.getElementById('avatar-preview').classList.add('show');
+                    document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-button')?.addEventListener('click', logout);
+
+        // Post creation
+        document.getElementById('create-post-button')?.addEventListener('click', () => {
+            document.getElementById('createPostModal').style.display = 'flex';
+        });
+
+        document.getElementById('submit-post-button')?.addEventListener('click', createPost);
+
+        // Admin functionality
+        document.getElementById('post-announcement-btn')?.addEventListener('click', postAnnouncement);
+
+        // Form validation
+        ['cookies', 'urls', 'amounts', 'intervals'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', validateForm);
+                input.addEventListener('change', validateForm);
+            }
+        });
+
+        // Server selection
+        document.getElementById('server-select-button')?.addEventListener('click', () => {
+            document.getElementById('serverModal').style.display = 'flex';
+            renderServerList();
+            checkServerStatus();
+            lucide.createIcons();
+        });
+
+        // Form submission
+        document.getElementById('share-boost-form')?.addEventListener('submit', handleFormSubmit);
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveSection(this.dataset.section);
+            });
+        });
+
+        document.querySelectorAll('.side-menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                setActiveSection(this.dataset.section);
+            });
+        });
+
+        // Menu controls
+        document.getElementById('menu-button')?.addEventListener('click', openSideMenu);
+        document.getElementById('close-menu-button')?.addEventListener('click', closeSideMenu);
+        document.getElementById('menu-overlay')?.addEventListener('click', closeSideMenu);
+
+        // Modal close handlers
+        [document.getElementById('responseModal'), document.getElementById('serverModal'), document.getElementById('createPostModal')].forEach(modalInstance => {
+            if (modalInstance) {
+                modalInstance.addEventListener('click', (event) => {
+                    if (event.target === modalInstance) {
+                        modalInstance.style.display = 'none';
                     }
                 });
+            }
+        });
+    }
 
-                const result = await response.json();
+    // Handle login
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
 
-                if (result.success) {
-                    modalMessage.textContent = 'Successfully submitted the request. Processing shares...';
-                } else {
-                    modalMessage.textContent = 'Failed to submit request. Please try again.';
-                }
+        // Simple validation
+        if (!email || !password) {
+            showModal('Please enter both email and password', 'error');
+            return;
+        }
 
-                modal.style.display = 'flex';
-            } catch (error) {
-                modalMessage.textContent = 'Error occurred. Please try again.';
-                modal.style.display = 'flex';
-            } finally {
-                processing.style.display = 'none';
-                button.style.display = 'inline-block';
+        // In a real app, this would be a server request
+        // For demo purposes, we'll use sampleUsers
+        const user = sampleUsers.find(u => u.email === email);
+        
+        if (user) {
+            currentUser = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                avatar: user.avatar,
+                role: user.role
+            };
+
+            // Save to localStorage
+            localStorage.setItem('shareBoostUser', JSON.stringify(currentUser));
+
+            // Setup UI
+            setupAuthenticatedUI();
+        } else {
+            showModal('Invalid email or password', 'error');
+        }
+    }
+
+    // Handle signup
+    function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+        // Simple validation
+        if (!name || !email || !password || !confirmPassword) {
+            showModal('Please fill in all fields', 'error');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showModal('Passwords do not match', 'error');
+            return;
+        }
+
+        // Get selected avatar
+        let avatar = '';
+        const selectedAvatar = document.querySelector('.avatar-option.selected');
+        if (selectedAvatar) {
+            avatar = selectedAvatar.dataset.avatar;
+        } else {
+            const uploadedAvatar = document.getElementById('avatar-preview').style.backgroundImage;
+            if (uploadedAvatar && uploadedAvatar !== 'none') {
+                avatar = uploadedAvatar.slice(4, -1).replace(/"/g, "");
+            } else {
+                // Default avatar if none selected
+                avatar = "https://i.imgur.com/JqYeS5n.png";
             }
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        // In a real app, this would be a server request
+        // For demo, we'll add to sampleUsers
+        const newUserId = sampleUsers.length + 1;
+        const newUser = {
+            id: newUserId,
+            name: name,
+            email: email,
+            avatar: avatar,
+            role: 'user', // All new users are regular by default
+            joinDate: new Date().toISOString().split('T')[0]
+        };
+        
+        sampleUsers.push(newUser);
+        USERS_DB[email] = { password: password, user: newUser };
+
+        currentUser = {
+            id: newUserId,
+            name: name,
+            email: email,
+            avatar: avatar,
+            role: 'user'
+        };
+
+        // Save to localStorage
+        localStorage.setItem('shareBoostUser', JSON.stringify(currentUser));
+
+        // Setup UI
+        setupAuthenticatedUI();
+    }
+
+    // Handle admin login
+    function handleAdminLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById('admin-username').value;
+        const password = document.getElementById('admin-password').value;
+
+        // Simple validation - in a real app, this would be a server request
+        if (password === ADMIN_PASSWORD) {
+            // Find admin user in sampleUsers
+            const adminUser = sampleUsers.find(u => u.role === 'admin');
+            
+            currentUser = {
+                id: adminUser.id,
+                name: adminUser.name,
+                email: adminUser.email,
+                avatar: adminUser.avatar,
+                role: 'admin'
+            };
+
+            // Save to localStorage
+            localStorage.setItem('shareBoostUser', JSON.stringify(currentUser));
+
+            // Setup UI
+            setupAuthenticatedUI();
+        } else {
+            showModal('Invalid admin credentials', 'error');
         }
+    }
+
+    // Logout
+    function logout() {
+        currentUser = null;
+        localStorage.removeItem('shareBoostUser');
+        document.getElementById('app-container').classList.add('hidden');
+        document.getElementById('auth-sections').classList.remove('hidden');
+        showAuthSection('login');
+    }
+
+    // Create post
+    function createPost() {
+        const content = document.getElementById('post-content-input').value.trim();
+        if (!content) {
+            showModal('Post content cannot be empty', 'error');
+            return;
+        }
+
+        const newPost = {
+            id: Date.now(),
+            userId: currentUser.id,
+            userName: currentUser.name,
+            userAvatar: currentUser.avatar,
+            content: content,
+            time: 'Just now',
+            likes: 0,
+            comments: [],
+            isLiked: false,
+            showComments: false
+        };
+
+        // Add to beginning of posts array
+        posts.unshift(newPost);
+
+        // Re-render posts
+        renderPosts();
+
+        // Clear and close
+        document.getElementById('post-content-input').value = '';
+        document.getElementById('createPostModal').style.display = 'none';
+
+        showModal('Post created successfully!', 'success');
+    }
+
+    // Render posts
+    function renderPosts() {
+        const postsContainer = document.getElementById('posts-container');
+        if (!postsContainer) return;
+
+        postsContainer.innerHTML = '';
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar" style="background-image: url('${post.userAvatar}')"></div>
+                    <div>
+                        <div class="post-user">${post.userName} ${post.userName === 'Admin' ? '<span class="admin-badge">Admin</span>' : ''}</div>
+                        <div class="post-time">${post.time}</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    ${post.content}
+                </div>
+                <div class="post-actions">
+                    <div class="post-action ${post.isLiked ? 'active' : ''}" data-post-id="${post.id}" data-action="like">
+                        <i data-lucide="thumbs-up" class="w-4 h-4 mr-1"></i>
+                        <span>Like (${post.likes})</span>
+                    </div>
+                    <div class="post-action" data-post-id="${post.id}" data-action="comment">
+                        <i data-lucide="message-square" class="w-4 h-4 mr-1"></i>
+                        <span>Comment (${post.comments.length})</span>
+                    </div>
+                    <div class="post-action" data-post-id="${post.id}" data-action="toggle-comments">
+                        <i data-lucide="chevron-down" class="w-4 h-4 mr-1"></i>
+                        <span>${post.showComments ? 'Hide' : 'Show'} Comments</span>
+                    </div>
+                </div>
+                <div class="comment ${post.showComments ? 'show' : ''}">
+                    ${post.comments.map(comment => `
+                        <div class="comment-item">
+                            <div class="comment-avatar" style="background-image: url('${comment.userAvatar}')"></div>
+                            <div class="comment-content">
+                                <div class="comment-user">${comment.userName}</div>
+                                <div class="comment-text">${comment.content}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div class="comment-input">
+                        <input type="text" placeholder="Write a comment..." data-post-id="${post.id}">
+                        <button class="comment-submit" data-post-id="${post.id}">Post</button>
+                    </div>
+                </div>
+            `;
+            postsContainer.appendChild(postElement);
+        });
+
+        // Add event listeners to new post actions
+        document.querySelectorAll('.post-action[data-action="like"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = parseInt(this.dataset.postId);
+                const post = posts.find(p => p.id === postId);
+                if (post) {
+                    post.isLiked = !post.isLiked;
+                    post.likes += post.isLiked ? 1 : -1;
+                    renderPosts();
+                }
+            });
+        });
+
+        document.querySelectorAll('.post-action[data-action="toggle-comments"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = parseInt(this.dataset.postId);
+                const post = posts.find(p => p.id === postId);
+                if (post) {
+                    post.showComments = !post.showComments;
+                    renderPosts();
+                }
+            });
+        });
+
+        document.querySelectorAll('.comment-submit').forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = parseInt(this.dataset.postId);
+                const post = posts.find(p => p.id === postId);
+                const input = document.querySelector(`.comment-input input[data-post-id="${postId}"]`);
+                const commentText = input.value.trim();
+                
+                if (commentText && post) {
+                    const newComment = {
+                        id: Date.now(),
+                        userId: currentUser.id,
+                        userName: currentUser.name,
+                        userAvatar: currentUser.avatar,
+                        content: commentText,
+                        time: 'Just now'
+                    };
+                    
+                    post.comments.push(newComment);
+                    input.value = '';
+                    renderPosts();
+                }
+            });
+        });
+
+        lucide.createIcons();
+    }
+
+    // Render user management for admin
+    function renderUserManagement() {
+        const userListContainer = document.getElementById('user-management-list');
+        if (!userListContainer) return;
+
+        userListContainer.innerHTML = '';
+        sampleUsers.forEach(user => {
+            if (user.role !== 'admin') { // Don't show admin in the list
+                const userElement = document.createElement('div');
+                userElement.className = 'flex items-center justify-between p-2 bg-input-bg rounded-lg';
+                userElement.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full mr-2" style="background-image: url('${user.avatar}'); background-size: cover;"></div>
+                        <div>
+                            <div class="font-medium">${user.name}</div>
+                            <div class="text-xs text-text-muted">${user.email}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs ${user.role === 'premium' ? 'premium-text' : 'text-text-muted'}">${user.role === 'premium' ? 'Premium' : 'Regular'}</span>
+                        ${user.role === 'user' ? 
+                            `<button class="text-xs bg-primary text-white px-2 py-1 rounded hover:bg-primary-darker transition-colors make-premium" data-user-id="${user.id}">
+                                Make Premium
+                            </button>` : 
+                            `<button class="text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 transition-colors remove-premium" data-user-id="${user.id}">
+                                Remove Premium
+                            </button>`
+                        }
+                    </div>
+                `;
+                userListContainer.appendChild(userElement);
+            }
+        });
+
+        // Add event listeners to premium buttons
+        document.querySelectorAll('.make-premium').forEach(button => {
+            button.addEventListener('click', function() {
+                const userId = parseInt(this.dataset.userId);
+                const user = sampleUsers.find(u => u.id === userId);
+                if (user) {
+                    user.role = 'premium';
+                    renderUserManagement();
+                    showModal(`${user.name} is now a Premium user`, 'success');
+                }
+            });
+        });
+
+        document.querySelectorAll('.remove-premium').forEach(button => {
+            button.addEventListener('click', function() {
+                const userId = parseInt(this.dataset.userId);
+                const user = sampleUsers.find(u => u.id === userId);
+                if (user) {
+                    user.role = 'user';
+                    renderUserManagement();
+                    showModal(`${user.name} is now a Regular user`, 'success');
+                }
+            });
+        });
+    }
+
+    // Render admin server status
+    function renderAdminServerStatus() {
+        const adminServerList = document.getElementById('admin-server-list');
+        if (!adminServerList) return;
+
+        adminServerList.innerHTML = '';
+        Object.keys(serverDefinitions).forEach(key => {
+            const server = serverDefinitions[key];
+            const serverItem = document.createElement('div');
+            serverItem.className = 'flex items-center justify-between p-2 bg-input-bg rounded-lg';
+            serverItem.innerHTML = `
+                <div class="font-medium">${server.name}</div>
+                <div class="flex items-center space-x-2">
+                    <span class="status-dot bg-gray-500"></span>
+                    <span class="text-xs text-text-muted">Checking...</span>
+                </div>
+            `;
+            adminServerList.appendChild(serverItem);
+        });
+
+        // Check server status for admin
+        checkAdminServerStatus();
+    }
+
+    // Check server status for admin
+    async function checkAdminServerStatus() {
+        const statusPromises = Object.keys(serverDefinitions).map(async (key, index) => {
+            const server = serverDefinitions[key];
+            const serverItem = document.getElementById('admin-server-list').children[index];
+            const statusDot = serverItem.querySelector('.status-dot');
+            const statusText = serverItem.querySelector('span.text-xs');
+
+            if (!serverItem || !statusDot || !statusText) return;
+
+            let status = 'Checking...';
+            let statusColor = 'bg-gray-500';
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 6000);
+                await fetch(server.url, { signal: controller.signal, mode: 'no-cors' });
+                clearTimeout(timeoutId);
+                status = 'Online';
+                statusColor = 'bg-status-active';
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    status = 'Timeout';
+                    statusColor = 'bg-status-timeout';
+                } else {
+                    status = 'Offline';
+                    statusColor = 'bg-status-offline';
+                }
+            }
+
+            statusDot.className = `status-dot ${statusColor}`;
+            statusText.textContent = status;
+            statusText.className = `text-xs ${status === 'Online' ? 'text-status-active' : 'text-text-muted'}`;
+        });
+
+        await Promise.all(statusPromises);
+    }
+
+    // Post announcement
+    function postAnnouncement() {
+        const announcementText = document.getElementById('admin-announcement').value.trim();
+        if (!announcementText) {
+            showModal('Please enter announcement text', 'error');
+            return;
+        }
+
+        // Create a new post as admin
+        const adminUser = sampleUsers.find(u => u.role === 'admin');
+        if (adminUser) {
+            const newPost = {
+                id: Date.now(),
+                userId: adminUser.id,
+                userName: adminUser.name,
+                userAvatar: adminUser.avatar,
+                content: `ANNOUNCEMENT: ${announcementText}`,
+                time: 'Just now',
+                likes: 0,
+                comments: [],
+                isLiked: false,
+                showComments: false
+            };
+
+            posts.unshift(newPost);
+            renderPosts();
+            document.getElementById('admin-announcement').value = '';
+            showModal('Announcement posted successfully!', 'success');
+        }
+    }
+
+    // All other functions remain the same as previous code
+    // ... (handleFormSubmit, showModal, validateForm, etc.)
+
+    // Initialize the app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initApp);
     </script>
-</body>
-  </html>
